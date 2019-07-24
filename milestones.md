@@ -4,15 +4,8 @@ is usually between 6 months and 1 year. A feature can be considered *delivered*
 once it is merged into scikit-learn's master branch: it means it will be part
 of the next stable release.
 
-For open source projects, measuring impact is notoriously hard, as library
-authors don't have access to telemetry. Download counts are often spread over
-several distribution channels and highly skewed by automated downloads. The
-impact of specific additions to open source projects is even harder to measure,
-in particular since adoption of new features can only be measured with
-significant delay. Acknowledging this, we are suggesting proxy metrics that
-allow at least some quantitative evaluation of the work.
-
 General maintenance
+-------------------
 
 We consider number of solved issues and fixed bugs, and number of reviewed and
 merged pull requests, as well as the trend of open issue and pull requests.
@@ -21,14 +14,15 @@ few minutes to many months, depending on the activity of the contributor and
 the complexity of the task, we hope this metric provides some insight into
 project health.
 
-We expect to have around 10 easy pull requests reviewed per month, and at least
-10 complex pull requests reviewed (and merged) in the span of 12 months. We
-also expect simple and/or critical bugs to be fixed within a few weeks, that is
+We expect to have around 10 smaller pull requests reviewed per month, and at least
+10 complex pull requests (such as major new features or changes to the API) reviewed and merged in the span of 12 months. We
+also expect simple and/or critical bugs to be fixed within a few weeks, i.e.
 before the next bug-fix release.
 
----------
+Improvements to GBDTs
+---------------------
 
-Regarding the Gradient Boosting Decision Trees (GBDT) improvement, we are
+Regarding the Gradient Boosting Decision Trees (GBDT) improvements, we are
 planning on the following timeline:
 
 1 month: Start work on missing values and documentation.
@@ -42,17 +36,18 @@ reviews.
 master branch. A stable release should follow soon.
 
 We expect support for sample weights and class weights to be merged during that
-year, without a specific deadline.
+year. Similarly, we expect to improve scalability on multi-core systems iteratively throughout the term of the grant.
 
 Note that the person submitting a pull-request cannot also review their own PR:
 this means that the completion of these timelines strongly depend on the
-availability of the other core-developers.
+availability of other core-developers.
 
 We expect these new features to increase usage of the HistGradientBoosting
 models, as can be measured by code search on Github. Currently a search for
 Jupyter Notebook returns about 50 hits, we expect this to rise to over 200.
 
----------
+Faster parameter searches
+-------------------------
 
 Regarding the support for parameter searches without redundant computation, we
 are planning on the following timeline:

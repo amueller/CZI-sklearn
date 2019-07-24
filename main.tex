@@ -18,16 +18,14 @@ The goal of this proposal is to add key features to the open-source machine lear
 
 Scikit-learn powers many applications of machine learning and data science,
 and it is used in many bio-medical
-applications~\cite{roles_of_ml_in_biomed_science,RICHTER201929,
-spike_sorting, herg}. Thanks to its ease of use, scikit-learn enables domain scientists without extensive machine learning knowledge to efficiently apply machine learning techniques to their core
+applications~\cite{roles_of_ml_in_biomed_science} including neuroscience~\cite{zandifar2017comparison, valera2016stereotyped, spike_sorting}, pharmaceutics~\cite{lindh2017predicting, lorberbaum2015systems, segler2017generating}, psychiatry~\cite{schmidt2015approaching, 10.1001/2013.jamapsychiatry.5, patel2015machine}, cancer research~\cite{bakas2017advancing, TAYLOR2018676, chaudhary2018deep}, epigenetics~\cite{wang2017epigenetic, kakaradov2017early, dogan2018integrated}, radiology~\cite{masino2016temporal,wang2015evaluation} and genetics~\cite{LAMANNO2016566, horlbeck2016compact, brannan2016sonar}. Thanks to its ease of use, scikit-learn enables domain scientists without extensive machine learning knowledge to efficiently apply machine learning techniques to their core
 discipline; as a result, the original scikit-learn paper~\cite{scikit-learn} has more
-than 17,000 citations, and the GitHub repository\footnote{\href{https://github.com/scikit-learn/scikit-learn}{https://github.com/scikit-learn/scikit-learn}} is used by more than 62,000 repositories. It is also a core upstream dependency of more
-specialized packages like QIIME~\cite{QIIME2, QIIME2_feature_classifier,
+than 18,000 citations, and the GitHub repository\footnote{\href{https://github.com/scikit-learn/scikit-learn}{https://github.com/scikit-learn/scikit-learn}} is used by more than 62,000 repositories. It is also a core upstream dependency of more
+specialized packages like Starfish\footnote{\href{https://github.com/spacetx/starfish}{https://github.com/spacetx/starfish}} for transcriptomics, Scanpy~\cite{scanpy} for single-cell analysis, or CellProfiler~\cite{cellprofiler} for biological image analysis which are directly built or funded by CZI. Other downstream packages include
+QIIME~\cite{QIIME2, QIIME2_feature_classifier,
 QIIME2_sample_classifier}, Nilearn~\cite{Neuro_imaging_sklearn}, MNE~\cite{MNE},
 Scikit-allel\footnote{\href{https://github.com/cggh/scikit-allel}{https://github.com/cggh/scikit-allel}},
-Starfish\footnote{\href{https://github.com/spacetx/starfish}{https://github.com/spacetx/starfish}}
-MSMBuilder~\cite{MSMBuilder}, GALA~\cite{GALA}, TEES \cite{TEES},
-Wyrm~\cite{wyrm}, MOABB~\cite{MOABB}, or PyOsirix~\cite{pyosirix}.
+MSMBuilder~\cite{MSMBuilder}, or MOABB~\cite{MOABB}.
 
 This proposal aims to fund the work of Andreas M\"uller (PI) for 4.5 months,
 and that of Nicolas Hug (co-PI) for 12 months. M\"uller and Hug are both
@@ -85,7 +83,7 @@ A new implementation of GBDTs (by co-PI Hug) was recently
 released in scikit-learn version 0.21. This new implementation
 outperforms XGBoost in terms of speed (while matching it's accuracy), and its results (in terms of speed and accuracy)
 are on a par with LightGBM. While the current implementation is operational,
-several important features are not implemented yet. Therefore we propose the following directions related to this new GBDT implementation:
+several important features are not implemented yet. Therefore we propose the following enhancements to this new GBDT implementation:
 \begin{enumerate}[a)]
 \item Implement native support for missing values. In real-world datasets, feature values might be missing due to measurement errors or incomplete measurements. In these cases, practitioners need to resort to
 imputation, which is often sub-optimal and not theoretically grounded~\cite{missing_values_consistency}.
@@ -110,15 +108,15 @@ implementation already has about 5000 lines of Python (and Cython) code.
 Despite great efforts to provide a thorough test suite, some bugs or
 numerical instability issues may still be present, which is expected for a
 code base of that size and complexity.
+
+\item Improved scalability on multiple cores. The new GBDT implementation is our first use of low-level
+parallelism (using OpenMP). This enables us to build extremely
+efficient estimators, but requires careful engineering and benchmarking to take full advantage of modern multi-core systems.
 \end{enumerate}
 
 Please also note that achieving a) and b) would make these models the
 first ones in scikit-learn to natively support missing data and
 categorical data. This will demand some careful design steps, and will increase the number of potential bugs and pitfalls.
-In addition, the new GBDT implementation is our first use of low-level
-parallelism (using OpenMP). This enables us to build extremely
-efficient estimators, but also adds new technical complexity that needs to
-be managed.
 
 
 \subsection{Faster parameter searches avoiding redundant computations}
@@ -154,15 +152,7 @@ implementation. This is a complex task that may require intrusive changes to
 scikit-learn core utilities.
 
 \subsection{Expected outcomes, success evaluation and metrics}
-For open source projects, measuring impact is notoriously hard, as library authors don't have access to telemetry. Download counts are often spread over several distribution channels and highly skewed by automated downloads. The impact of specific additions to open source projects is even harder to measure, in particular since adoption of new features can only be measured with significant delay. Acknowledging this, we are suggesting proxy metrics that allow at least some quantitative evaluation of the work.
-
-\subsubsection{General maintenance}
-
-We consider number of solved issues and fixed bugs, and number of reviewed and  merged pull requests, as well as the trend of open issue and pull requests. Even though the amount of time required to review a pull
-request varies from a few minutes to many months, depending on the activity
-of the contributor and the complexity of the task, we hope this metric provides some insight into project health.
-
-We expect to have around 10 easy pull requests reviewed per month, and at least 10 complex pull requests reviewed (and merged) in the span of 12 months. We also expect simple and/or critical bugs to be fixed within a few weeks, that is before the next bug-fix release.
+For open source projects, measuring impact is notoriously hard, as library authors don't have access to telemetry. Download counts are often spread over several distribution channels and highly skewed by automated downloads. The impact of specific additions to open source projects is even harder to measure, in particular since adoption of new features can only be measured with significant delay. Acknowledging this, we are suggesting proxy metrics that allow at least some quantitative evaluation of the work in the Milestones and Deliverables document.
 
 \subsubsection{New features for GBDT models}
 
@@ -179,7 +169,6 @@ assessing the pros and cons of each approach would already be an
 accomplishment and would serve as groundwork for future directions.
 
 Our goal would be successfully met here if we can reach a consensus on implementation path. A release of the implementation would be a stretch goal.
-
 
 \section{Work plan}
 
@@ -256,7 +245,6 @@ related projects.
 \end{figure}
 
 \clearpage
-\bibliographystyle{alpha} % or named ?
-\bibliography{biblio}
+\printbibliography
 
 \end{document}
