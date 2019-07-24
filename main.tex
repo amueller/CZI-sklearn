@@ -1,9 +1,12 @@
 \documentclass[11pt]{article}  % min is 11pt
+\title{Enhancement and Maintenance of the scikit-learn project\vspace{-3ex}}
+\date{\vspace{-5ex}}
 
 \include{packages}
 
 \begin{document}
 
+\maketitle
 \section{Goals}
 
 % 30+ citations but mostly neuro science:
@@ -18,7 +21,7 @@ and it is used in many bio-medical
 applications~\cite{roles_of_ml_in_biomed_science,RICHTER201929,
 spike_sorting, herg}. Thanks to its ease of use, scikit-learn enables domain scientists without extensive machine learning knowledge to efficiently apply machine learning techniques to their core
 discipline; as a result, the original scikit-learn paper~\cite{scikit-learn} has more
-than 17,000 citations. It is also a core upstream dependency of more
+than 17,000 citations, and the GitHub repository\footnote{\href{https://github.com/scikit-learn/scikit-learn}{https://github.com/scikit-learn/scikit-learn}} is used by more than 62,000 repositories. It is also a core upstream dependency of more
 specialized packages like QIIME~\cite{QIIME2, QIIME2_feature_classifier,
 QIIME2_sample_classifier}, Nilearn~\cite{Neuro_imaging_sklearn}, MNE~\cite{MNE},
 Scikit-allel\footnote{\href{https://github.com/cggh/scikit-allel}{https://github.com/cggh/scikit-allel}},
@@ -190,13 +193,7 @@ to the package, in particular the new GBDT implementation mentioned above.
 \item Fund participations in some key Python and scientific conferences,
 such as the SciPy conference
 \footnote{\href{https://conference.scipy.org/}{https://conference.scipy.org}}.
-\item Fund participation and organization of sprints, in particular the WiMLDS sprints. These
-sprints aim at engaging more people from under-represented groups and
-encourage them to participate in the development of scikit-learn. During sprints, attendees usually address some easy issues, typically
-documentation or code cleaning. Despite their apparent simplicity, these
-contributions are tremendously useful for the general health of the project
-and provide an easy entry point for new developers to engage with the open
-source community.
+\item Fund participation and organization of sprints, in particular the WiMLDS sprints\footnote{\href{http://wimlds.org/opensourcesprints-2/}{http://wimlds.org/opensourcesprints-2/}}. See our \textit{Diversity and Inclusion Statement} for details on these events.
 \end{itemize}
 
 We believe that mentoring other contributors is very important for the
@@ -244,15 +241,15 @@ related projects.
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=0.5\textwidth]{pipeline}
+    \includegraphics[width=0.5\textwidth]{drawing}
   \caption{
-      Parameter search for a pipeline predicting electromyography signal
+      Parameter search for a model predicting electromyography signal
       from magnetoencephalography activity. Inspired by the MNE
       package\cite{MNE}.\\
       \textbf{Left}: Current parameter search in
       scikit-learn. The pre-processing SPoC step is repeated for each of the
       two pipelines, even though it never changes.\\
-      \textbf{Right}: Proposed implementation. The SPoc step is only
+      \textbf{Right}: Proposed implementation. The SPoC step is only
       computed once.
       }
       \label{fig:fast_grid_search}
