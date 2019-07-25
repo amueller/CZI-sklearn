@@ -21,11 +21,11 @@ and it is used in many bio-medical
 applications~\cite{roles_of_ml_in_biomed_science} including neuroscience~\cite{zandifar2017comparison, valera2016stereotyped, spike_sorting}, pharmaceutics~\cite{lindh2017predicting, lorberbaum2015systems, segler2017generating}, psychiatry~\cite{schmidt2015approaching, 10.1001/2013.jamapsychiatry.5, patel2015machine}, cancer research~\cite{bakas2017advancing, TAYLOR2018676, chaudhary2018deep}, epigenetics~\cite{wang2017epigenetic, kakaradov2017early, dogan2018integrated}, radiology~\cite{masino2016temporal,wang2015evaluation} and genetics~\cite{LAMANNO2016566, horlbeck2016compact, brannan2016sonar}. Thanks to its ease of use, scikit-learn enables domain scientists without extensive machine learning knowledge to efficiently apply machine learning techniques to their core
 discipline; as a result, the original scikit-learn paper~\cite{scikit-learn} has more
 than 18,000 citations, and the GitHub repository\footnote{\href{https://github.com/scikit-learn/scikit-learn}{https://github.com/scikit-learn/scikit-learn}} is used by more than 62,000 repositories. It is also a core upstream dependency of more
-specialized packages like Starfish\footnote{\href{https://github.com/spacetx/starfish}{https://github.com/spacetx/starfish}} for transcriptomics, Scanpy~\cite{scanpy} for single-cell analysis, or CellProfiler~\cite{cellprofiler} for biological image analysis which are directly built or funded by CZI. Other downstream packages include
+specialized packages like Starfish\footnote{\href{https://github.com/spacetx/starfish}{https://github.com/spacetx/starfish}} for transcriptomics, Scanpy~\cite{scanpy} for single-cell analysis, and CellProfiler~\cite{cellprofiler} for biological image analysis which are directly built or funded by CZI. Other downstream packages in biomedical research include
 QIIME~\cite{QIIME2, QIIME2_feature_classifier,
 QIIME2_sample_classifier}, Nilearn~\cite{Neuro_imaging_sklearn}, MNE~\cite{MNE},
 Scikit-allel\footnote{\href{https://github.com/cggh/scikit-allel}{https://github.com/cggh/scikit-allel}},
-MSMBuilder~\cite{MSMBuilder}, or MOABB~\cite{MOABB}.
+MSMBuilder~\cite{MSMBuilder}, and MOABB~\cite{MOABB}.
 
 This proposal aims to fund the work of Andreas M\"uller (PI) for 4.5 months,
 and that of Nicolas Hug (co-PI) for 12 months. M\"uller and Hug are both
@@ -42,7 +42,7 @@ detailed in the next subsections:
 \subsection{Maintenance of the library}
 
 As one of the most widely used machine learning libraries, scikit-learn has
-a tremendously large code-base, of which some parts are many years old. New contributions are submitted each day, along with many bug reports or
+a tremendously large code-base, of which some parts are many years old. New contributions are submitted every day, along with bug reports or
 feature requests. We propose to fund both M\"uller and Hug to ensure the
 continued improvement of the library, and to ensure the project evolves to
 meet the growing needs of the scientific community. Maintaining scikit-learn consists of:
@@ -54,14 +54,14 @@ quality criteria of the project, in particular regarding code
 maintainability and user documentation.
 \item Supporting and connecting with the community: this includes
 maintaining a high-quality documentation, reaching out to users to advertise
-new useful features, and decide what directions to take according to community
+new features, and decide what directions to take according to community
 needs. It also involves organizing sprints to engage the community and
 increase diversity among the contributors.
-\item Making sure backward compatibility is preserved between versions, and
+\item Ensuring backward compatibility is preserved between versions, and
 that new features are consistent with the needs of the library. This is
 important for the health of the project and for the numerous downstream
 projects that rely on scikit-learn.
-\item Reducing the current backlog. There are many issues and pull-requests that get stalled for various reasons. Reviewing these pull requests and closing irrelevant ones helps contributors and developers to focus on important matters.
+\item Reducing the current backlog. There are many issues and pull-requests that get stalled for various reasons, most commonly for the lack of time by core developers. Reviewing these pull requests and closing irrelevant ones helps contributors and developers to focus on important matters.
 \end{enumerate}
 
 These tasks require experience and a consistent involvement in the project
@@ -77,19 +77,20 @@ machine learning, including biomedical applications~\cite{chen2019hiv, shah2019d
 
 Recent implementations like LightGBM~\cite{LightGBM} and XGBoost~\cite{XGB}
 offer state-of-the-art results, both in terms of prediction accuracy and
-computation time. However, directly including an implementation in scikit-learn ensures compatibility with the core package, and prevents inconsistencies in the API. Moreover, due to scikit-learn's popularity, distributing an implementation with scikit-learn will increase the visibility and adoption of these highly effective algorithms by non specialists.
-
+computation time.
 A new implementation of GBDTs (by co-PI Hug) was recently
 released in scikit-learn version 0.21. This new implementation
 outperforms XGBoost in terms of speed (while matching it's accuracy), and its results (in terms of speed and accuracy)
-are on a par with LightGBM. While the current implementation is operational,
+are on a par with LightGBM. Directly including an implementation in scikit-learn ensures compatibility with the core package, and prevents inconsistencies in the API. Moreover, due to scikit-learn's popularity, distributing an implementation with scikit-learn will increase the visibility and adoption of these highly effective algorithms by non-specialists.
+
+While the current implementation is operational,
 several important features are not implemented yet. Therefore we propose the following enhancements to this new GBDT implementation:
 \begin{enumerate}[a)]
-\item Implement native support for missing values. In real-world datasets, feature values might be missing due to measurement errors or incomplete measurements. In these cases, practitioners need to resort to
-imputation, which is often sub-optimal and not theoretically grounded~\cite{missing_values_consistency}.
+\item Implement native support for missing values. In real-world datasets, feature values might be missing due to measurement errors or incomplete measurements. The current implementation requires practitioners to resort to
+imputation, which can lead to suboptimal results and is not theoretically grounded~\cite{missing_values_consistency}.
 Unlike most machine learning models, GBDTs are able to natively support
 missing data, without resorting to imputation of missing values. This makes
-them extremely handy to use, in particular for non-specialists. Both
+them extremely useful for working with messy data, in particular for non-specialists. Both
 LightGBM and XGBoost natively support missing values.
 \item Implement native support for categorical features. Categorical
 features are pervasive in bio-medical science. For example sex, age, race,
@@ -106,12 +107,11 @@ This feature is implemented in LightGBM, but not in XGBoost.
 \item Maintain the code, and fix the potential bugs. The current
 implementation already has about 5000 lines of Python (and Cython) code.
 Despite great efforts to provide a thorough test suite, some bugs or
-numerical instability issues may still be present, which is expected for a
-code base of that size and complexity.
+numerical instability issues may still be present given the size and complexity of the
+code base.
 
 \item Improved scalability on multiple cores. The new GBDT implementation is our first use of low-level
-parallelism (using OpenMP). This enables us to build extremely
-efficient estimators, but requires careful engineering and benchmarking to take full advantage of modern multi-core systems.
+parallelism (using OpenMP). This enables us to build models much faster, but requires careful engineering and benchmarking to take full advantage of modern multi-core systems.
 \end{enumerate}
 
 Please also note that achieving a) and b) would make these models the
@@ -132,12 +132,11 @@ redundant computation, and previously computed results can potentially be
 re-used. As illustrated on Figure \ref{fig:fast_grid_search}, when parameters of
 the final model change, it is unnecessary to recompute the previous
 (preprocessing) steps.
-
 Currently scikit-learn unnecessarily performs redundant computations, wasting
 computation time.
 
-Leveraging dask features, in particular dask’s graph execution engine, the
-dask-ml package now provides equivalent implementations of
+Leveraging features of the dask library for distributed computing, in particular dask’s graph execution engine, the
+dask-ml package provides equivalent implementations of
 parameter search logic that are able to re-use previously computed steps.
 This implementation can be much faster than the implementation available in
 scikit-learn. However, this package is not as popular as the scikit-learn
@@ -152,34 +151,34 @@ implementation. This is a complex task that may require intrusive changes to
 scikit-learn core utilities.
 
 \subsection{Expected outcomes, success evaluation and metrics}
-For open source projects, measuring impact is notoriously hard, as library authors don't have access to telemetry. Download counts are often spread over several distribution channels and highly skewed by automated downloads. The impact of specific additions to open source projects is even harder to measure, in particular since adoption of new features can only be measured with significant delay. Acknowledging this, we are suggesting proxy metrics that allow at least some quantitative evaluation of the work in the Milestones and Deliverables document.
+For open source projects, measuring impact is notoriously hard, as library authors don't have access to telemetry. Download counts are often spread over several distribution channels and highly skewed by automated downloads. The impact of specific additions to open source projects is even harder to measure, in particular since adoption of new features can only be measured with significant delay. Acknowledging this, we are suggesting proxy metrics that allow at least some quantitative evaluation of the work in the Milestones and Deliverables document. Our high-level goals are outlined below.
+
+\subsubsection{Maintenance of the Library}
+We aim to slow the growth of open issues an pull-requests, ideally even decreasing their number, and shorten the time taken to resolve an issue. We also aim to broaden the community of developers, and in particular the diversity of core developers.
 
 \subsubsection{New features for GBDT models}
 
 For the GBDT models, our primary goal is merging the proposed
-features (in particular support for missing values and categorical data) into scikit-learn, and inclusion into a release of the package. We also expect our additions to increase usage of the HistGradientBoosting models, as can be measured by code search on Github. Currently a search for Jupyter Notebook returns about 50 hits, we expect this to rise to over 200.
+features (in particular support for missing values and categorical data) into scikit-learn, and inclusion into a release of the package. We also expect our additions to increase usage of the HistGradientBoosting models, as can be measured by code search on Github.
 
 \subsubsection{Faster parameter searches}
 
 Given the complexity of the
-task, such an implementation would require some careful design steps. There
-are indeed many different approaches to solving this problem, each of which
+task, an effective implementation of parameter search that reduces redundant computation would require careful design and review by the core team. There
+are several different approaches to solving this problem, each of which
 has its own technical constraints. As a result, clearly defining and
 assessing the pros and cons of each approach would already be an
 accomplishment and would serve as groundwork for future directions.
-
-Our goal would be successfully met here if we can reach a consensus on implementation path. A release of the implementation would be a stretch goal.
+Our goal here is to reach consensus on an implementation path.
 
 \section{Work plan}
-
-
-The funds would be used to:
+The funds will be used to:
 \begin{itemize}
 \item Fund Andreas M\"uller's position for 4.5 months. His long-term experience with the project is essential for evaluating changes in API design and dependencies that are necessary for the planned work.
 \item Fund Nicolas Hug's position for 12 months. Hug has been involved in
 maintaining scikit-learn for over a year, and has been a core developer for 6 months. He has contributed key features
 to the package, in particular the new GBDT implementation mentioned above.
-\item Fund participations in some key Python and scientific conferences,
+\item Fund participations in key Python and scientific conferences,
 such as the SciPy conference
 \footnote{\href{https://conference.scipy.org/}{https://conference.scipy.org}}.
 \item Fund participation and organization of sprints, in particular the WiMLDS sprints\footnote{\href{http://wimlds.org/opensourcesprints-2/}{http://wimlds.org/opensourcesprints-2/}}. See our \textit{Diversity and Inclusion Statement} for details on these events.
@@ -245,7 +244,6 @@ related projects.
 \end{figure}
 
 \clearpage
-\bibliographystyle{abbrv} % or named ?
-\bibliography{biblio}
+\printbibliography
 
 \end{document}
