@@ -53,7 +53,7 @@ meet the growing needs of the scientific community. Maintaining scikit-learn con
 quality criteria of the project, in particular regarding code
 maintainability and user documentation.
 \item Supporting and connecting with the community: this includes
-maintaining a high-quality documentation, reaching out to users to advertise
+maintaining high-quality documentation, reaching out to users to advertise
 new features, and decide what directions to take according to community
 needs. It also involves organizing sprints to engage the community and
 increase diversity among the contributors.
@@ -80,7 +80,7 @@ offer state-of-the-art results, both in terms of prediction accuracy and
 computation time.
 A new implementation of GBDTs (by co-PI Hug) was recently
 released in scikit-learn version 0.21. This new implementation
-outperforms XGBoost in terms of speed (while matching it's accuracy), and its results (in terms of speed and accuracy)
+outperforms XGBoost in terms of speed (while matching its accuracy), and its results (in terms of speed and accuracy)
 are on a par with LightGBM. Directly including an implementation in scikit-learn ensures compatibility with the core package, and prevents inconsistencies in the API. Moreover, due to scikit-learn's popularity, distributing an implementation with scikit-learn will increase the visibility and adoption of these highly effective algorithms by non-specialists.
 
 While the current implementation is operational,
@@ -104,7 +104,7 @@ Implementing this would free practitioners from having to worry about encoding c
 This feature is implemented in LightGBM, but not in XGBoost.
 \item Implement support for sample weights and class weights, which allow the user to specify the confidence they have in their measurements and deal with imbalanced datasets.
 \item Document and explain the usage of the new implementation, with an emphasis on missing value support and support for categorical variables. Create detailed examples of typical use-cases.
-\item Maintain the code, and fix the potential bugs. The current
+\item Maintain the code, and fix potential bugs. The current
 implementation already has about 5000 lines of Python (and Cython) code.
 Despite great efforts to provide a thorough test suite, some bugs or
 numerical instability issues may still be present given the size and complexity of the
